@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Comparison | PerplexityHub Executive Suite</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLT8PS0KND"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CLT8PS0KND');
+    </script>
+    
+    <!-- API Integration -->
+    <script src="/api-integration.js"></script>
+    
+    <style>
+        /* ULTRA LUXURY DESIGN SYSTEM - $100K PLATFORM FEEL */
+        :root {
+            /* METALLIC LUXURY COLOR PALETTE */
+            --obsidian: #0B0B0D;
+            --metallic-black: #141416;
+            --graphite: #1A1A1D;
+            --titanium: #202024;
+            --platinum-dark: #2A2A2E;
+            --steel-grey: #3A3A3F;
+            --metallic-grey: #6B6B73;
+            --silver-mist: #8B8B93;
+            --pearl-grey: #B5B5BD;
+            --platinum: #E8E8ED;
+            --pure-white: #FFFFFF;
+            
+            /* FLUORESCENT ORANGE SPECTRUM */
+            --fluorescent-orange: #FF4D00;
+            --neon-orange: #FF6600;
+            --electric-orange: #FF8533;
+            --glow-orange: #FFAA66;
+            --orange-shimmer: rgba(255, 77, 0, 0.15);
+            --orange-glow: rgba(255, 102, 0, 0.25);
+            --orange-pulse: rgba(255, 77, 0, 0.4);
+            
+            /* PREMIUM GRADIENTS */
+            --metallic-gradient: linear-gradient(135deg, #141416 0%, #1A1A1D 25%, #202024 50%, #2A2A2E 75%, #3A3A3F 100%);
+            --orange-gradient: linear-gradient(135deg, #FF4D00 0%, #FF6600 50%, #FF8533 100%);
+            --shimmer-gradient: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            --glow-gradient: radial-gradient(circle, var(--orange-glow) 0%, transparent 70%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--obsidian);
+            color: var(--platinum);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* LUXURY BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 77, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 77, 0, 0.03) 0%, transparent 50%),
+                var(--metallic-gradient);
+            z-index: -1;
+        }
+
+        /* PREMIUM NAVIGATION BAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(11, 11, 13, 0.98);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 77, 0, 0.1);
+            z-index: 1000;
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: var(--orange-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--metallic-grey);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--fluorescent-orange);
+            text-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        /* TOOL HEADER */
+        .tool-header {
+            margin-top: 120px;
+            padding: 4rem 3rem;
+            text-align: center;
+            background: var(--metallic-gradient);
+            border-bottom: 1px solid rgba(255, 77, 0, 0.1);
+        }
+
+        .tool-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, 
+                var(--platinum) 0%, 
+                var(--fluorescent-orange) 50%, 
+                var(--platinum) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(255, 77, 0, 0.5);
+        }
+
+        .tool-subtitle {
+            font-size: 1.5rem;
+            color: var(--metallic-grey);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* COMPARISON CONTAINER */
+        .comparison-container {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 3rem;
+        }
+
+        /* QUERY INPUT SECTION */
+        .query-section {
+            background: var(--metallic-gradient);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .query-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--orange-gradient);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        .query-label {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--fluorescent-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .query-input {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.5);
+            border: 2px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: var(--platinum);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .query-input:focus {
+            outline: none;
+            border-color: var(--fluorescent-orange);
+            background: rgba(10, 10, 10, 0.8);
+            box-shadow: 0 0 30px rgba(255, 77, 0, 0.2);
+        }
+
+        .query-suggestions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-chip {
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid rgba(255, 77, 0, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: var(--fluorescent-orange);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-chip:hover {
+            background: var(--fluorescent-orange);
+            color: var(--obsidian);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 77, 0, 0.3);
+        }
+
+        /* MODEL SELECTION */
+        .model-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .model-checkbox {
+            background: rgba(20, 20, 22, 0.8);
+            border: 2px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-checkbox.active {
+            border-color: var(--fluorescent-orange);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .model-checkbox:hover {
+            border-color: var(--fluorescent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 77, 0, 0.2);
+        }
+
+        .model-checkbox input {
+            display: none;
+        }
+
+        .model-name {
+            font-weight: 600;
+            color: var(--platinum);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .model-icon {
+            font-size: 1.5rem;
+        }
+
+        /* COMPARE BUTTON */
+        .compare-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--orange-gradient);
+            color: var(--obsidian);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 77, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compare-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .compare-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 77, 0, 0.4);
+        }
+
+        .compare-btn:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(45deg) translateX(100%); opacity: 0; }
+        }
+
+        /* RESULTS SECTION */
+        .results-section {
+            display: none;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .result-card {
+            background: var(--metallic-gradient);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--orange-gradient);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        .model-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .model-logo {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid rgba(255, 77, 0, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .model-info h3 {
+            font-size: 1.5rem;
+            color: var(--fluorescent-orange);
+            margin-bottom: 0.25rem;
+        }
+
+        .model-info p {
+            color: var(--metallic-grey);
+            font-size: 0.9rem;
+        }
+
+        .response-content {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .response-content p {
+            color: var(--pearl-grey);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .response-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* METRICS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(20, 20, 22, 0.6);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--fluorescent-orange);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--metallic-grey);
+        }
+
+        /* ANALYSIS SECTION */
+        .analysis-section {
+            background: var(--metallic-gradient);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .analysis-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--fluorescent-orange);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .winner-badge {
+            background: var(--orange-gradient);
+            color: var(--obsidian);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(255, 77, 0, 0.3);
+        }
+
+        /* LOADING ANIMATION */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 11, 13, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            background: var(--fluorescent-orange);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* SCROLLBAR */
+        .response-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-content::-webkit-scrollbar-track {
+            background: var(--obsidian);
+            border-radius: 4px;
+        }
+
+        .response-content::-webkit-scrollbar-thumb {
+            background: var(--steel-grey);
+            border-radius: 4px;
+        }
+
+        .response-content::-webkit-scrollbar-thumb:hover {
+            background: var(--fluorescent-orange);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 968px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PREMIUM NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PerplexityHub</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#tools" class="nav-link">All Tools</a>
+                <a href="/#pricing" class="nav-link">Pricing</a>
+                <a href="/pro" class="nav-link" style="
+                    background: var(--orange-gradient);
+                    color: var(--obsidian);
+                    padding: 0.75rem 2rem;
+                    border-radius: 50px;
+                    font-weight: 700;
+                ">UPGRADE TO PRO</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TOOL HEADER -->
+    <div class="tool-header">
+        <h1 class="tool-title">AI MODEL COMPARISON</h1>
+        <p class="tool-subtitle">
+            Real-time performance benchmarking across leading AI models. 
+            Compare responses, speed, and accuracy with institutional-grade analysis.
+        </p>
+    </div>
+
+    <!-- COMPARISON CONTAINER -->
+    <div class="comparison-container">
+        <!-- QUERY INPUT SECTION -->
+        <div class="query-section">
+            <label class="query-label">Enter Your Query</label>
+            <textarea class="query-input" id="queryInput" placeholder="Ask any question to compare AI model responses..."></textarea>
+            
+            <div class="query-suggestions">
+                <div class="suggestion-chip" onclick="setQuery('Explain quantum computing in simple terms')">
+                    Quantum Computing
+                </div>
+                <div class="suggestion-chip" onclick="setQuery('Write a Python function to find prime numbers')">
+                    Code Generation
+                </div>
+                <div class="suggestion-chip" onclick="setQuery('What are the best practices for remote team management?')">
+                    Business Strategy
+                </div>
+                <div class="suggestion-chip" onclick="setQuery('Analyze the causes of the 2008 financial crisis')">
+                    Complex Analysis
+                </div>
+            </div>
+
+            <!-- MODEL SELECTION -->
+            <label class="query-label" style="margin-top: 2rem;">Select Models to Compare</label>
+            <div class="model-selection">
+                <label class="model-checkbox active">
+                    <input type="checkbox" value="gpt4" checked>
+                    <div class="model-name">
+                        <span class="model-icon">🧠</span>
+                        GPT-4
+                    </div>
+                </label>
+                
+                <label class="model-checkbox active">
+                    <input type="checkbox" value="perplexity" checked>
+                    <div class="model-name">
+                        <span class="model-icon">🔍</span>
+                        Perplexity
+                    </div>
+                </label>
+                
+                <label class="model-checkbox active">
+                    <input type="checkbox" value="claude" checked>
+                    <div class="model-name">
+                        <span class="model-icon">🤖</span>
+                        Claude 3
+                    </div>
+                </label>
+                
+                <label class="model-checkbox">
+                    <input type="checkbox" value="gemini">
+                    <div class="model-name">
+                        <span class="model-icon">💎</span>
+                        Gemini Pro
+                    </div>
+                </label>
+                
+                <label class="model-checkbox">
+                    <input type="checkbox" value="gpt35">
+                    <div class="model-name">
+                        <span class="model-icon">⚡</span>
+                        GPT-3.5
+                    </div>
+                </label>
+                
+                <label class="model-checkbox">
+                    <input type="checkbox" value="llama">
+                    <div class="model-name">
+                        <span class="model-icon">🦙</span>
+                        Llama 2
+                    </div>
+                </label>
+            </div>
+
+            <button class="compare-btn" onclick="compareModels()">
+                ⚔️ COMPARE MODELS
+            </button>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-grid" id="resultsGrid">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+
+            <!-- ANALYSIS SECTION -->
+            <div class="analysis-section" id="analysisSection">
+                <h2 class="analysis-title">Comparative Analysis</h2>
+                <div id="analysisContent">
+                    <!-- Analysis will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p style="color: var(--metallic-grey); font-size: 1.2rem;">
+                Querying AI models...
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Model checkbox interactions
+        document.querySelectorAll('.model-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                const input = this.querySelector('input');
+                input.checked = !input.checked;
+                this.classList.toggle('active');
+            });
+        });
+
+        function setQuery(query) {
+            document.getElementById('queryInput').value = query;
+        }
+
+        function compareModels() {
+            const query = document.getElementById('queryInput').value.trim();
+            if (!query) {
+                alert('Please enter a query to compare');
+                return;
+            }
+
+            const selectedModels = [];
+            document.querySelectorAll('.model-checkbox input:checked').forEach(input => {
+                selectedModels.push(input.value);
+            });
+
+            if (selectedModels.length < 2) {
+                alert('Please select at least 2 models to compare');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Simulate API calls
+            setTimeout(() => {
+                displayResults(query, selectedModels);
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 3000);
+        }
+
+        function displayResults(query, models) {
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsGrid = document.getElementById('resultsGrid');
+            
+            resultsSection.style.display = 'block';
+            resultsGrid.innerHTML = '';
+
+            // Mock responses for demo
+            const mockResponses = {
+                gpt4: {
+                    name: 'GPT-4',
+                    icon: '🧠',
+                    response: 'Based on my analysis, this is a comprehensive response that demonstrates advanced reasoning capabilities. The solution involves multiple considerations including technical implementation details, best practices, and potential optimizations. I\'ve structured the response to be both informative and actionable.',
+                    speed: '1.2s',
+                    tokens: '342',
+                    quality: '95%'
+                },
+                perplexity: {
+                    name: 'Perplexity',
+                    icon: '🔍',
+                    response: 'According to recent sources and verified information, here\'s what I found: The topic requires understanding of several key concepts. Multiple authoritative sources confirm this approach is considered industry standard. I\'ve included relevant citations and real-time data to support the analysis.',
+                    speed: '0.8s',
+                    tokens: '298',
+                    quality: '92%'
+                },
+                claude: {
+                    name: 'Claude 3',
+                    icon: '🤖',
+                    response: 'I approach this question by first establishing the fundamental principles involved. The solution can be broken down into clear, logical steps that build upon each other. This method ensures both accuracy and comprehensibility while maintaining technical precision throughout.',
+                    speed: '1.0s',
+                    tokens: '315',
+                    quality: '94%'
+                },
+                gemini: {
+                    name: 'Gemini Pro',
+                    icon: '💎',
+                    response: 'Drawing from extensive training data and multimodal understanding, I can provide insights that span multiple domains. The analysis considers various perspectives and potential edge cases, ensuring a robust and well-rounded response to your query.',
+                    speed: '0.9s',
+                    tokens: '276',
+                    quality: '91%'
+                },
+                gpt35: {
+                    name: 'GPT-3.5',
+                    icon: '⚡',
+                    response: 'Here\'s a quick and efficient response to your query. While maintaining good accuracy, I focus on delivering the essential information promptly. This approach balances speed with quality to provide practical solutions.',
+                    speed: '0.4s',
+                    tokens: '198',
+                    quality: '88%'
+                },
+                llama: {
+                    name: 'Llama 2',
+                    icon: '🦙',
+                    response: 'As an open-source model, I provide transparent and accessible AI capabilities. The response follows established patterns while offering flexibility for customization and fine-tuning based on specific requirements.',
+                    speed: '1.5s',
+                    tokens: '256',
+                    quality: '86%'
+                }
+            };
+
+            // Display results for selected models
+            models.forEach(model => {
+                const data = mockResponses[model];
+                if (data) {
+                    const resultCard = createResultCard(data);
+                    resultsGrid.appendChild(resultCard);
+                }
+            });
+
+            // Display analysis
+            displayAnalysis(models, mockResponses);
+        }
+
+        function createResultCard(data) {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            card.innerHTML = `
+                <div class="model-header">
+                    <div class="model-logo">${data.icon}</div>
+                    <div class="model-info">
+                        <h3>${data.name}</h3>
+                        <p>Response generated</p>
+                    </div>
+                </div>
+                <div class="response-content">
+                    <p>${data.response}</p>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">${data.speed}</div>
+                        <div class="metric-label">Response Time</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">${data.tokens}</div>
+                        <div class="metric-label">Tokens Used</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">${data.quality}</div>
+                        <div class="metric-label">Quality Score</div>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function displayAnalysis(models, responses) {
+            const analysisContent = document.getElementById('analysisContent');
+            
+            // Find best performer
+            let bestModel = models[0];
+            let bestQuality = 0;
+            
+            models.forEach(model => {
+                const quality = parseInt(responses[model].quality);
+                if (quality > bestQuality) {
+                    bestQuality = quality;
+                    bestModel = model;
+                }
+            });
+
+            analysisContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div class="winner-badge">
+                        🏆 ${responses[bestModel].name} - Best Overall
+                    </div>
+                </div>
+                <div style="display: grid; gap: 1.5rem;">
+                    <div style="background: rgba(20, 20, 22, 0.6); border: 1px solid rgba(255, 77, 0, 0.1); 
+                               border-radius: 15px; padding: 1.5rem;">
+                        <h4 style="color: var(--fluorescent-orange); margin-bottom: 1rem;">Speed Analysis</h4>
+                        <p style="color: var(--pearl-grey); line-height: 1.6;">
+                            GPT-3.5 demonstrated the fastest response time at 0.4s, making it ideal for 
+                            real-time applications. Perplexity and Gemini Pro also showed excellent speed 
+                            with sub-second responses.
+                        </p>
+                    </div>
+                    <div style="background: rgba(20, 20, 22, 0.6); border: 1px solid rgba(255, 77, 0, 0.1); 
+                               border-radius: 15px; padding: 1.5rem;">
+                        <h4 style="color: var(--fluorescent-orange); margin-bottom: 1rem;">Quality Assessment</h4>
+                        <p style="color: var(--pearl-grey); line-height: 1.6;">
+                            GPT-4 achieved the highest quality score with comprehensive reasoning and 
+                            structured responses. Claude 3 and Perplexity also scored highly with 
+                            their analytical approaches.
+                        </p>
+                    </div>
+                    <div style="background: rgba(20, 20, 22, 0.6); border: 1px solid rgba(255, 77, 0, 0.1); 
+                               border-radius: 15px; padding: 1.5rem;">
+                        <h4 style="color: var(--fluorescent-orange); margin-bottom: 1rem;">Use Case Recommendations</h4>
+                        <p style="color: var(--pearl-grey); line-height: 1.6;">
+                            • <strong>Complex Analysis:</strong> GPT-4 or Claude 3<br>
+                            • <strong>Real-time Search:</strong> Perplexity<br>
+                            • <strong>Quick Responses:</strong> GPT-3.5<br>
+                            • <strong>Multimodal Tasks:</strong> Gemini Pro<br>
+                            • <strong>Open Source:</strong> Llama 2
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

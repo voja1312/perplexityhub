@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Optimizer | PerplexityHub Executive Suite</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CLT8PS0KND"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CLT8PS0KND');
+    </script>
+    
+    <!-- API Integration -->
+    <script src="/api-integration.js"></script>
+    
+    <style>
+        /* ULTRA LUXURY DESIGN SYSTEM - $100K PLATFORM FEEL */
+        :root {
+            /* METALLIC LUXURY COLOR PALETTE */
+            --obsidian: #0B0B0D;
+            --metallic-black: #141416;
+            --graphite: #1A1A1D;
+            --titanium: #202024;
+            --platinum-dark: #2A2A2E;
+            --steel-grey: #3A3A3F;
+            --metallic-grey: #6B6B73;
+            --silver-mist: #8B8B93;
+            --pearl-grey: #B5B5BD;
+            --platinum: #E8E8ED;
+            --pure-white: #FFFFFF;
+            
+            /* FLUORESCENT ORANGE SPECTRUM */
+            --fluorescent-orange: #FF4D00;
+            --neon-orange: #FF6600;
+            --electric-orange: #FF8533;
+            --glow-orange: #FFAA66;
+            --orange-shimmer: rgba(255, 77, 0, 0.15);
+            --orange-glow: rgba(255, 102, 0, 0.25);
+            --orange-pulse: rgba(255, 77, 0, 0.4);
+            
+            /* PREMIUM GRADIENTS */
+            --metallic-gradient: linear-gradient(135deg, #141416 0%, #1A1A1D 25%, #202024 50%, #2A2A2E 75%, #3A3A3F 100%);
+            --orange-gradient: linear-gradient(135deg, #FF4D00 0%, #FF6600 50%, #FF8533 100%);
+            --shimmer-gradient: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            --glow-gradient: radial-gradient(circle, var(--orange-glow) 0%, transparent 70%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: var(--obsidian);
+            color: var(--platinum);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* LUXURY BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 77, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 77, 0, 0.03) 0%, transparent 50%),
+                var(--metallic-gradient);
+            z-index: -1;
+        }
+
+        /* PREMIUM NAVIGATION BAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(11, 11, 13, 0.98);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 77, 0, 0.1);
+            z-index: 1000;
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: var(--orange-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--metallic-grey);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--fluorescent-orange);
+            text-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        /* TOOL HEADER */
+        .tool-header {
+            margin-top: 120px;
+            padding: 4rem 3rem;
+            text-align: center;
+            background: var(--metallic-gradient);
+            border-bottom: 1px solid rgba(255, 77, 0, 0.1);
+        }
+
+        .tool-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, 
+                var(--platinum) 0%, 
+                var(--fluorescent-orange) 50%, 
+                var(--platinum) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(255, 77, 0, 0.5);
+        }
+
+        .tool-subtitle {
+            font-size: 1.5rem;
+            color: var(--metallic-grey);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* OPTIMIZER CONTAINER */
+        .optimizer-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 3rem;
+        }
+
+        /* INPUT SECTION */
+        .input-section {
+            background: var(--metallic-gradient);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--orange-gradient);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        .section-label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--fluorescent-orange);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .prompt-input {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.5);
+            border: 2px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: var(--platinum);
+            font-size: 1.1rem;
+            font-family: inherit;
+            min-height: 150px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: var(--fluorescent-orange);
+            background: rgba(10, 10, 10, 0.8);
+            box-shadow: 0 0 30px rgba(255, 77, 0, 0.2);
+        }
+
+        /* OPTIMIZATION OPTIONS */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: rgba(20, 20, 22, 0.8);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card.active {
+            border-color: var(--fluorescent-orange);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .option-card:hover {
+            border-color: var(--fluorescent-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 77, 0, 0.2);
+        }
+
+        .option-title {
+            font-weight: 700;
+            color: var(--platinum);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .option-desc {
+            font-size: 0.9rem;
+            color: var(--metallic-grey);
+        }
+
+        /* OPTIMIZE BUTTON */
+        .optimize-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--orange-gradient);
+            color: var(--obsidian);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 77, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .optimize-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .optimize-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 77, 0, 0.4);
+        }
+
+        .optimize-btn:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(45deg) translateX(100%); opacity: 0; }
+        }
+
+        /* RESULTS SECTION */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .result-card {
+            background: var(--metallic-gradient);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--orange-gradient);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.5);
+        }
+
+        .optimized-prompt {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: var(--pearl-grey);
+            font-size: 1.1rem;
+        }
+
+        /* METRICS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(20, 20, 22, 0.6);
+            border: 1px solid rgba(255, 77, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--fluorescent-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--metallic-grey);
+        }
+
+        /* ACTION BUTTONS */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: transparent;
+            color: var(--fluorescent-orange);
+            border: 2px solid rgba(255, 77, 0, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--orange-gradient);
+            color: var(--obsidian);
+            border-color: var(--fluorescent-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.3);
+        }
+
+        /* LOADING STATE */
+        .optimizing {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .optimizing.active {
+            display: block;
+        }
+
+        .pulse-loader {
+            width: 80px;
+            height: 80px;
+            background: var(--fluorescent-orange);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 968px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PREMIUM NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PerplexityHub</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#tools" class="nav-link">All Tools</a>
+                <a href="/#pricing" class="nav-link">Pricing</a>
+                <a href="/pro" class="nav-link" style="
+                    background: var(--orange-gradient);
+                    color: var(--obsidian);
+                    padding: 0.75rem 2rem;
+                    border-radius: 50px;
+                    font-weight: 700;
+                ">UPGRADE TO PRO</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TOOL HEADER -->
+    <div class="tool-header">
+        <h1 class="tool-title">PROMPT OPTIMIZER</h1>
+        <p class="tool-subtitle">
+            Transform basic prompts into precision-engineered queries. 
+            10x better results with military-grade prompt optimization.
+        </p>
+    </div>
+
+    <!-- OPTIMIZER CONTAINER -->
+    <div class="optimizer-container">
+        <!-- INPUT SECTION -->
+        <div class="input-section">
+            <h2 class="section-label">
+                <span style="font-size: 1.5rem;">🎯</span>
+                Original Prompt
+            </h2>
+            
+            <textarea class="prompt-input" id="originalPrompt" 
+                placeholder="Enter your prompt here...
+
+Example: 'Write a blog post about AI'"></textarea>
+
+            <h3 class="section-label" style="font-size: 1.1rem; margin-bottom: 1rem;">
+                Optimization Strategy
+            </h3>
+
+            <div class="options-grid">
+                <div class="option-card active" data-strategy="clarity">
+                    <div class="option-title">
+                        <span>💎</span> Maximum Clarity
+                    </div>
+                    <div class="option-desc">
+                        Enhanced specificity and context for precise results
+                    </div>
+                </div>
+
+                <div class="option-card" data-strategy="creative">
+                    <div class="option-title">
+                        <span>🎨</span> Creative Enhancement
+                    </div>
+                    <div class="option-desc">
+                        Boosts creativity while maintaining coherence
+                    </div>
+                </div>
+
+                <div class="option-card" data-strategy="technical">
+                    <div class="option-title">
+                        <span>⚙️</span> Technical Precision
+                    </div>
+                    <div class="option-desc">
+                        Optimizes for technical accuracy and detail
+                    </div>
+                </div>
+
+                <div class="option-card" data-strategy="structured">
+                    <div class="option-title">
+                        <span>📊</span> Structured Output
+                    </div>
+                    <div class="option-desc">
+                        Ensures organized, well-formatted responses
+                    </div>
+                </div>
+            </div>
+
+            <button class="optimize-btn" onclick="optimizePrompt()">
+                ⚡ OPTIMIZE PROMPT
+            </button>
+        </div>
+
+        <!-- OPTIMIZING STATE -->
+        <div class="optimizing" id="optimizing">
+            <div class="pulse-loader"></div>
+            <p style="color: var(--metallic-grey); font-size: 1.1rem;">
+                Analyzing and optimizing your prompt...
+            </p>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <div class="results-section" id="resultsSection">
+            <div class="result-card">
+                <h2 class="section-label">
+                    <span style="font-size: 1.5rem;">✨</span>
+                    Optimized Prompt
+                </h2>
+
+                <div class="optimized-prompt" id="optimizedPrompt">
+                    <!-- Optimized prompt will appear here -->
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <span class="metric-value" id="clarityScore">0%</span>
+                        <span class="metric-label">Clarity Score</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="specificityScore">0%</span>
+                        <span class="metric-label">Specificity</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="contextScore">0%</span>
+                        <span class="metric-label">Context</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value" id="improvementScore">0%</span>
+                        <span class="metric-label">Improvement</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="copyOptimized()">
+                        📋 Copy Optimized
+                    </button>
+                    <button class="action-btn" onclick="comparePrompts()">
+                        🔄 Compare
+                    </button>
+                    <button class="action-btn" onclick="optimizeAgain()">
+                        🔁 Re-optimize
+                    </button>
+                    <button class="action-btn" onclick="exportAnalysis()">
+                        📊 Export Analysis
+                    </button>
+                </div>
+            </div>
+
+            <!-- COMPARISON SECTION -->
+            <div class="result-card" id="comparisonSection" style="display: none;">
+                <h2 class="section-label">
+                    <span style="font-size: 1.5rem;">⚔️</span>
+                    Before vs After
+                </h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--metallic-grey); margin-bottom: 1rem;">Original</h4>
+                        <div class="optimized-prompt" style="background: rgba(255, 77, 0, 0.05);">
+                            <span id="originalComparison"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--fluorescent-orange); margin-bottom: 1rem;">Optimized</h4>
+                        <div class="optimized-prompt" style="border-color: var(--fluorescent-orange);">
+                            <span id="optimizedComparison"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Strategy selection
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.option-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        async function optimizePrompt() {
+            const originalPrompt = document.getElementById('originalPrompt').value.trim();
+            
+            if (!originalPrompt) {
+                alert('Please enter a prompt to optimize');
+                return;
+            }
+
+            // Get selected strategy
+            const strategy = document.querySelector('.option-card.active').dataset.strategy;
+
+            // Show loading state
+            document.getElementById('optimizing').classList.add('active');
+            document.getElementById('resultsSection').classList.remove('active');
+
+            try {
+                // Use real API if available
+                if (window.perplexityAPI) {
+                    const response = await window.perplexityAPI.optimizePrompt(originalPrompt, strategy);
+                    
+                    // Parse the response to extract the optimized prompt
+                    const lines = response.split('\n');
+                    let optimizedPrompt = originalPrompt;
+                    
+                    // Look for the optimized prompt in the response
+                    for (let i = 0; i < lines.length; i++) {
+                        if (lines[i].includes('Optimized prompt:') || lines[i].includes('1.')) {
+                            optimizedPrompt = lines.slice(i + 1, i + 5).join(' ').trim();
+                            break;
+                        }
+                    }
+                    
+                    displayResults(originalPrompt, optimizedPrompt, response);
+                } else {
+                    // Fallback to demo mode
+                    const optimized = performOptimization(originalPrompt, strategy);
+                    displayResults(originalPrompt, optimized);
+                }
+                
+                // Hide loading, show results
+                document.getElementById('optimizing').classList.remove('active');
+                document.getElementById('resultsSection').classList.add('active');
+                
+                // Scroll to results
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                document.getElementById('optimizing').classList.remove('active');
+                alert('Error optimizing prompt: ' + error.message);
+            }
+        }
+
+        function performOptimization(prompt, strategy) {
+            let optimized = prompt;
+
+            // Base optimization patterns
+            const enhancements = {
+                clarity: {
+                    prefix: "Please provide a detailed and comprehensive response to the following request: ",
+                    suffix: "\n\nInclude specific examples, clear explanations, and actionable insights where applicable.",
+                    context: "\n\nContext: Professional setting requiring high-quality output."
+                },
+                creative: {
+                    prefix: "Using creative and innovative approaches, ",
+                    suffix: "\n\nFeel free to think outside the box and explore unique perspectives. Be imaginative while maintaining coherence.",
+                    context: "\n\nTone: Creative, engaging, and thought-provoking."
+                },
+                technical: {
+                    prefix: "Provide a technically accurate and detailed explanation for: ",
+                    suffix: "\n\nInclude technical specifications, best practices, and implementation details. Use precise terminology.",
+                    context: "\n\nAudience: Technical professionals seeking in-depth understanding."
+                },
+                structured: {
+                    prefix: "Create a well-structured and organized response for: ",
+                    suffix: "\n\nFormat the response with clear sections, bullet points where appropriate, and a logical flow.",
+                    context: "\n\nOutput format: Structured document with headers and organized sections."
+                }
+            };
+
+            const enhancement = enhancements[strategy];
+            
+            // Apply optimization
+            optimized = enhancement.prefix + prompt + enhancement.suffix + enhancement.context;
+
+            // Add role-based enhancement
+            if (prompt.toLowerCase().includes('write') || prompt.toLowerCase().includes('create')) {
+                optimized = "Acting as an expert content creator, " + optimized;
+            } else if (prompt.toLowerCase().includes('analyze') || prompt.toLowerCase().includes('explain')) {
+                optimized = "Acting as a subject matter expert, " + optimized;
+            } else if (prompt.toLowerCase().includes('code') || prompt.toLowerCase().includes('programming')) {
+                optimized = "Acting as a senior software engineer, " + optimized;
+            }
+
+            // Add output requirements
+            optimized += "\n\nRequirements:\n";
+            optimized += "- Be specific and detailed\n";
+            optimized += "- Use clear, professional language\n";
+            optimized += "- Provide actionable information\n";
+            optimized += "- Ensure accuracy and relevance";
+
+            return optimized;
+        }
+
+        function displayResults(original, optimized, fullResponse = null) {
+            // If we have a full API response, show it formatted
+            if (fullResponse) {
+                const formattedResponse = fullResponse
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/(\d+\.)/g, '<br><strong>$1</strong>');
+                document.getElementById('optimizedPrompt').innerHTML = formattedResponse;
+            } else {
+                document.getElementById('optimizedPrompt').textContent = optimized;
+            }
+            
+            // Calculate and display metrics
+            const originalLength = original.length;
+            const optimizedLength = optimized.length;
+            
+            const clarityScore = Math.min(95, 70 + (optimizedLength / originalLength) * 10);
+            const specificityScore = Math.min(92, 65 + (optimizedLength / originalLength) * 15);
+            const contextScore = Math.min(98, 75 + (optimizedLength / originalLength) * 12);
+            const improvementScore = Math.min(96, ((optimizedLength / originalLength) - 1) * 100);
+
+            // Animate metrics
+            animateMetric('clarityScore', clarityScore);
+            animateMetric('specificityScore', specificityScore);
+            animateMetric('contextScore', contextScore);
+            animateMetric('improvementScore', improvementScore);
+
+            // Store for comparison
+            document.getElementById('originalComparison').textContent = original;
+            document.getElementById('optimizedComparison').textContent = optimized;
+        }
+
+        function animateMetric(elementId, targetValue) {
+            const element = document.getElementById(elementId);
+            let currentValue = 0;
+            const increment = targetValue / 50;
+            
+            const interval = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    currentValue = targetValue;
+                    clearInterval(interval);
+                }
+                element.textContent = Math.round(currentValue) + '%';
+            }, 20);
+        }
+
+        function copyOptimized() {
+            const optimized = document.getElementById('optimizedPrompt').textContent;
+            navigator.clipboard.writeText(optimized).then(() => {
+                alert('Optimized prompt copied to clipboard!');
+            });
+        }
+
+        function comparePrompts() {
+            const comparisonSection = document.getElementById('comparisonSection');
+            if (comparisonSection.style.display === 'none') {
+                comparisonSection.style.display = 'block';
+                comparisonSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                comparisonSection.style.display = 'none';
+            }
+        }
+
+        function optimizeAgain() {
+            const optimizedPrompt = document.getElementById('optimizedPrompt').textContent;
+            document.getElementById('originalPrompt').value = optimizedPrompt;
+            document.getElementById('resultsSection').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exportAnalysis() {
+            alert('Export feature available in Pro version');
+        }
+    </script>
+</body>
+</html>
